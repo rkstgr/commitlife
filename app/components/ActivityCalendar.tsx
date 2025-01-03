@@ -10,7 +10,9 @@ import {
   startOfWeek,
   endOfWeek,
   isWithinInterval,
+  format,
 } from "date-fns";
+import * as Tooltip from "@radix-ui/react-tooltip";
 
 type CalendarProps = {
   commits: Array<{ datetime: string }>;
@@ -19,11 +21,13 @@ type CalendarProps = {
 
 export function ActivityCalendar({ commits, targetRecurrence }: CalendarProps) {
   const data = useMemo(() => {
-    const currentYear = new Date().getFullYear();
-    const yearStart = startOfYear(new Date(currentYear, 0, 1));
-    const yearEnd = endOfYear(new Date(currentYear, 11, 31));
-
-    const days = eachDayOfInterval({ start: yearStart, end: yearEnd });
+    const yearStart = startOfYear(new Date());
+    const yearEnd = endOfYear(new Date());
+    console.log(yearStart, yearEnd);
+    const days = eachDayOfInterval({
+      start: new Date(2025, 0, 1),
+      end: new Date(2025, 0, 10),
+    });
 
     return days.map((day) => {
       const hasCommit = commits.some(
@@ -55,12 +59,33 @@ export function ActivityCalendar({ commits, targetRecurrence }: CalendarProps) {
       }
 
       return {
-        date: day.toISOString().split("T")[0],
+        date: format(day, "yyyy-MM-dd"),
         count: 0,
         level: level,
       } as Activity;
     });
   }, [commits, targetRecurrence]);
 
-  return <ReactActivityCalendar data={data} />;
+  return (
+    <Tooltip.Provider>
+      <ReactActivityCalendar
+        data={data}
+        weekStart={1}
+        renderBlock={(block, activity) => (
+          <Tooltip.Root>
+            <Tooltip.Trigger asChild>{block}</Tooltip.Trigger>
+            <Tooltip.Portal>
+              <Tooltip.Content
+                className="rounded px-2 py-1 text-xs font-medium bg-neutral-800 text-white"
+                sideOffset={5}
+              >
+                {format(new Date(activity.date), "MMM dd, yyyy")}
+                <Tooltip.Arrow className="fill-neutral-800" />
+              </Tooltip.Content>
+            </Tooltip.Portal>
+          </Tooltip.Root>
+        )}
+      />
+    </Tooltip.Provider>
+  );
 }

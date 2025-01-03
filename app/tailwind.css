@@ -4,9 +4,26 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white dark:bg-neutral-950;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   }
+}
+
+.input {
+  background-color: #f2f2f2;
+  border: 1px solid #f2f2f2;
+  line-height: 1.5;
+  @apply dark:bg-neutral-800 dark:border-neutral-800 dark:text-white;
+}
+
+.input:focus {
+  border-color: #8d8d8d;
+  box-shadow: 0 0 0 3px #d6d6d6;
+  outline: 0;
+  background-color: #fff;
+  @apply dark:border-neutral-600
+         dark:bg-neutral-900
+         dark:shadow-[0_0_0_3px_#404040];
 }
