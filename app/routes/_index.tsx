@@ -8,8 +8,6 @@ import { Activity } from "~/lib/types";
 
 export const loader: LoaderFunction = async () => {
   const activities = await getActivities();
-  console.log(activities);
-  console.log(activities[0].commits);
   return Response.json({ activities });
 };
 

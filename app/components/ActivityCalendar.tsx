@@ -62,7 +62,5 @@ export function ActivityCalendar({ commits, targetRecurrence }: CalendarProps) {
     });
   }, [commits, targetRecurrence]);
 
-  console.log("data", data);
-
   return <ReactActivityCalendar data={data} />;
 }
