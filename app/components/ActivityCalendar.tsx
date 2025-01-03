@@ -23,10 +23,9 @@ export function ActivityCalendar({ commits, targetRecurrence }: CalendarProps) {
   const data = useMemo(() => {
     const yearStart = startOfYear(new Date());
     const yearEnd = endOfYear(new Date());
-    console.log(yearStart, yearEnd);
     const days = eachDayOfInterval({
-      start: new Date(2025, 0, 1),
-      end: new Date(2025, 0, 10),
+      start: yearStart,
+      end: yearEnd,
     });
 
     return days.map((day) => {
