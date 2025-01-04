@@ -10,13 +10,13 @@ Track your life activities in the style of github commit history
 - [ ] Make title of activities editable
 
 - [ ] Auth/Login
-- [ ] Production Database
+- [x] Production Database
 
 
 ## Sections
 
 ### Production Database
-we use xata
+we are going to use xata (managed postgres)
 1. create the database online
 2. create .env and paste postgres connection string
 3. update schema.prisma

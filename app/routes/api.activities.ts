@@ -1,5 +1,6 @@
 import { type ActionFunction } from "@remix-run/node";
 import { createActivity } from "~/lib/activity.server";
+import { sessionStorage } from "~/services/session.server";
 
 export const action: ActionFunction = async ({ request }) => {
   if (request.method !== "POST") {
@@ -14,7 +15,21 @@ export const action: ActionFunction = async ({ request }) => {
     return Response.json({ error: "Missing required fields" }, { status: 400 });
   }
 
+  const session = await sessionStorage.getSession(
+    request.headers.get("cookie")
+  );
+  const sessionUser = session.get("user");
+  if (!sessionUser) {
+    return Response.json(
+      { error: "You have to be logged in to create an activity" },
+      { status: 405 }
+    );
+  }
+
+  console.log(sessionUser);
+
   const activity = await createActivity({
+    userId: sessionUser.id,
     title: title.toString(),
     targetRecurrence: targetRecurrence.toString(),
   });

@@ -7,17 +7,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id           String   @id @default(uuid())
-  email        String
-  authProvider String // github, email
-  providerId   String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-}
-
 model Activity {
   id               String   @id @default(uuid())
+  userId           String
   title            String
   targetRecurrence String // "EVERY_DAY", "ONCE_A_WEEK", "TWICE_A_WEEK"
   commits          Commit[]
@@ -35,4 +27,17 @@ model Commit {
 
   @@index([activityId])
   @@index([datetime])
+}
+
+model User {
+  id             String   @id @default(uuid())
+  email          String   @unique
+  hashedPassword String
+  authProvider   String // github, email
+  providerId     String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([providerId])
+  @@index([email])
 }
