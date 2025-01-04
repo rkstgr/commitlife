@@ -103,7 +103,10 @@ export function ActivityCalendar({
       <ReactActivityCalendar
         data={data}
         maxLevel={2}
-        theme={{ light: ["#FFDAC2", "#FF9D5C", "#F56200"] }}
+        theme={{
+          light: ["#FFDAC2", "#FF9D5C", "#F56200"],
+          dark: ["#FFDAC2", "#FF9D5C", "#F56200"],
+        }}
         weekStart={1}
         eventHandlers={{
           onClick: () => (activity) => handleClick(activity),
