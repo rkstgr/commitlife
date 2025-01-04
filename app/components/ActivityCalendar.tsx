@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import {
-  Activity,
+  Activity as CalendarActivity,
   ActivityCalendar as ReactActivityCalendar,
 } from "react-activity-calendar";
 import {
@@ -11,15 +11,24 @@ import {
   endOfWeek,
   isWithinInterval,
   format,
+  isFuture,
 } from "date-fns";
 import * as Tooltip from "@radix-ui/react-tooltip";
+import { useFetcher } from "@remix-run/react";
 
 type CalendarProps = {
+  activityId: string;
   commits: Array<{ datetime: string }>;
   targetRecurrence: string;
 };
 
-export function ActivityCalendar({ commits, targetRecurrence }: CalendarProps) {
+export function ActivityCalendar({
+  commits,
+  targetRecurrence,
+  activityId,
+}: CalendarProps) {
+  const fetcher = useFetcher();
+
   const data = useMemo(() => {
     const yearStart = startOfYear(new Date());
     const yearEnd = endOfYear(new Date());
@@ -61,15 +70,42 @@ export function ActivityCalendar({ commits, targetRecurrence }: CalendarProps) {
         date: format(day, "yyyy-MM-dd"),
         count: 0,
         level: level,
-      } as Activity;
+      } as CalendarActivity;
     });
   }, [commits, targetRecurrence]);
+
+  const handleClick = (activity: CalendarActivity) => {
+    const clickedDate = new Date(activity.date);
+    if (isFuture(clickedDate)) return;
+
+    const hasCommit = commits.some(
+      (commit) =>
+        new Date(commit.datetime).toDateString() === clickedDate.toDateString()
+    );
+
+    if (hasCommit) {
+      // Remove commit logic
+      fetcher.submit(
+        { date: activity.date, activityId },
+        { method: "delete", action: "/api/commits" }
+      );
+    } else {
+      // Add commit logic
+      fetcher.submit(
+        { date: activity.date, activityId },
+        { method: "post", action: "/api/commits" }
+      );
+    }
+  };
 
   return (
     <Tooltip.Provider>
       <ReactActivityCalendar
         data={data}
         weekStart={1}
+        eventHandlers={{
+          onClick: () => (activity) => handleClick(activity),
+        }}
         renderBlock={(block, activity) => (
           <Tooltip.Root>
             <Tooltip.Trigger asChild>{block}</Tooltip.Trigger>

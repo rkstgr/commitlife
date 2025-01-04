@@ -55,6 +55,7 @@ export function ActivityCard({ activity }: ActivityProps) {
       <ActivityCalendar
         commits={activity.commits}
         targetRecurrence={activity.targetRecurrence}
+        activityId={activity.id}
       />
     </div>
   );
