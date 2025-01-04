@@ -17,7 +17,7 @@ export default function Index() {
 
   return (
     <main className="container mx-auto p-4 max-w-screen-md">
-      <h1 className="text-3xl font-bold mb-8">CommitLife</h1>
+      <h1 className="text-3xl font-bold mb-8">Commit Life</h1>
       <div className="space-y-8">
         {activities.map((activity: Activity) => (
           <ActivityCard key={activity.id} activity={activity} />

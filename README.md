@@ -1,6 +1,6 @@
 # CommitLife
 
-Track activities in the style of github commit history
+Track your life activities in the style of github commit history
 
 ## TODO
 - [x] Fix dark mode / UI styling

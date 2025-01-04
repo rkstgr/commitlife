@@ -46,7 +46,7 @@ export function ActivityCalendar({
       let level = 0;
 
       if (targetRecurrence === "EVERY_DAY") {
-        level = hasCommit ? 4 : 0;
+        level = hasCommit ? 2 : 0;
       } else if (["ONCE_A_WEEK", "TWICE_A_WEEK"].includes(targetRecurrence)) {
         const weekStart = startOfWeek(day, { weekStartsOn: 1 });
         const weekEnd = endOfWeek(day, { weekStartsOn: 1 });
@@ -63,7 +63,7 @@ export function ActivityCalendar({
             ? commitsInWeek.length >= 1
             : commitsInWeek.length >= 2;
 
-        level = hasCommit ? 4 : targetMet ? 1 : 0;
+        level = hasCommit ? 2 : targetMet ? 1 : 0;
       }
 
       return {
@@ -102,6 +102,8 @@ export function ActivityCalendar({
     <Tooltip.Provider>
       <ReactActivityCalendar
         data={data}
+        maxLevel={2}
+        theme={{ light: ["#FFDAC2", "#FF9D5C", "#F56200"] }}
         weekStart={1}
         eventHandlers={{
           onClick: () => (activity) => handleClick(activity),
