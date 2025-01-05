@@ -22,6 +22,65 @@ type CalendarProps = {
   targetRecurrence: string;
 };
 
+function calculateStreak(
+  commits: Array<{ datetime: string }>,
+  targetRecurrence: string
+) {
+  if (targetRecurrence === "EVERY_DAY") {
+    const sortedDates = commits
+      .map((c) => new Date(c.datetime))
+      .sort((a, b) => a.getTime() - b.getTime());
+
+    let currentStreak = 1;
+    let maxStreak = 1;
+
+    for (let i = 1; i < sortedDates.length; i++) {
+      const diff = Math.abs(
+        sortedDates[i - 1].getTime() - sortedDates[i].getTime()
+      );
+      const isConsecutive = diff <= 24 * 60 * 60 * 1000;
+
+      if (isConsecutive) {
+        currentStreak++;
+        maxStreak = Math.max(maxStreak, currentStreak);
+      } else {
+        currentStreak = 1;
+      }
+    }
+
+    return `Longest streak: ${maxStreak} ${maxStreak === 1 ? "day" : "days"}`;
+  } else {
+    const weekMap = new Map<string, number>();
+
+    commits.forEach((commit) => {
+      const date = new Date(commit.datetime);
+      const weekStart = startOfWeek(date, { weekStartsOn: 1 });
+      const weekKey = format(weekStart, "yyyy-MM-dd");
+      weekMap.set(weekKey, (weekMap.get(weekKey) || 0) + 1);
+    });
+
+    const weeks = Array.from(weekMap.entries())
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(
+        ([_, count]) => count >= (targetRecurrence === "ONCE_A_WEEK" ? 1 : 2)
+      );
+
+    let currentStreak = 0;
+    let maxStreak = 0;
+
+    weeks.forEach((isComplete) => {
+      if (isComplete) {
+        currentStreak++;
+        maxStreak = Math.max(maxStreak, currentStreak);
+      } else {
+        currentStreak = 0;
+      }
+    });
+
+    return `Longest streak: ${maxStreak} ${maxStreak === 1 ? "week" : "weeks"}`;
+  }
+}
+
 export function ActivityCalendar({
   commits,
   targetRecurrence,
@@ -103,13 +162,13 @@ export function ActivityCalendar({
       <ReactActivityCalendar
         data={data}
         maxLevel={2}
-        theme={{
-          light: ["#FFDAC2", "#FF9D5C", "#F56200"],
-          dark: ["#FFDAC2", "#FF9D5C", "#F56200"],
-        }}
         weekStart={1}
         eventHandlers={{
           onClick: () => (activity) => handleClick(activity),
+        }}
+        labels={{
+          legend: { less: "Inactive", more: "Done" },
+          totalCount: calculateStreak(commits, targetRecurrence),
         }}
         renderBlock={(block, activity) => (
           <Tooltip.Root>

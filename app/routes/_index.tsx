@@ -60,7 +60,7 @@ export default function Index() {
             <ActivityCard key={activity.id} activity={activity} />
           ))}
       </div>
-      <div className="mt-8">
+      <div className="mt-8 mx-auto text-center">
         <NewActivityModal />
       </div>
     </main>

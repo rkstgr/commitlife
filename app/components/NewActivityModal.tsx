@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { useFetcher } from "@remix-run/react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { cn } from "~/lib/utils";
+import Button from "./Button";
+import { Plus } from "lucide-react";
 
 export function NewActivityModal() {
   const [open, setOpen] = useState(false);
@@ -20,9 +23,9 @@ export function NewActivityModal() {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <button className="bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded hover:bg-green-600 dark:hover:bg-green-700">
-          Add New Activity
-        </button>
+        <Button variant="outline" className="inline-flex items-center gap-1">
+          <Plus size={20} /> New Activity
+        </Button>
       </Dialog.Trigger>
 
       <Dialog.Portal>
@@ -47,7 +50,9 @@ export function NewActivityModal() {
                     id="title"
                     name="title"
                     required
-                    className="mt-1 block w-full rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 dark:focus:border-blue-400"
+                    className={cn(
+                      "search-input w-full px-3 py-2 rounded-md transition-all duration-300"
+                    )}
                   />
                 </div>
 
@@ -62,7 +67,9 @@ export function NewActivityModal() {
                     id="targetRecurrence"
                     name="targetRecurrence"
                     required
-                    className="mt-1 block w-full rounded border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-700 text-gray-900 dark:text-white shadow-sm focus:border-blue-500 dark:focus:border-blue-400"
+                    className={cn(
+                      "search-select w-full px-3 py-2 rounded-md transition-all duration-300"
+                    )}
                   >
                     <option value="EVERY_DAY">Every Day</option>
                     <option value="ONCE_A_WEEK">Once a Week</option>
@@ -72,19 +79,11 @@ export function NewActivityModal() {
 
                 <div className="flex justify-end space-x-3">
                   <Dialog.Close asChild>
-                    <button
-                      type="button"
-                      className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded"
-                    >
+                    <Button type="button" variant="outline">
                       Cancel
-                    </button>
+                    </Button>
                   </Dialog.Close>
-                  <button
-                    type="submit"
-                    className="px-4 py-2 text-sm font-medium text-white bg-blue-500 dark:bg-blue-600 hover:bg-blue-600 dark:hover:bg-blue-700 rounded"
-                  >
-                    Create
-                  </button>
+                  <Button type="submit">Create</Button>
                 </div>
               </div>
             </fetcher.Form>

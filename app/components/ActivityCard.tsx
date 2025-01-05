@@ -4,6 +4,7 @@ import { ActivityCalendar } from "./ActivityCalendar";
 import { Activity } from "~/lib/types";
 import { Check } from "lucide-react";
 import { isToday } from "date-fns";
+import Button from "./Button";
 
 type ActivityProps = {
   activity: Activity;
@@ -44,12 +45,7 @@ export function ActivityCard({ activity }: ActivityProps) {
             <Check className="w-6 h-6" />
           </div>
         ) : (
-          <button
-            onClick={handleCommit}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
-          >
-            Complete Today
-          </button>
+          <Button onClick={handleCommit}>Complete Today</Button>
         )}
       </div>
       <ActivityCalendar

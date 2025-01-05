@@ -9,7 +9,8 @@ Track your life activities in the style of github commit history
 
 - [x] Auth/Login
 - [x] Production Database
-- [ ] Push to vercel
+- [x] Push to vercel
+- [ ] Rework UI
 
 - [ ] Instead of total activites show "x/ out of N days" ; or longest streak
 - [ ] Make title of activities editable

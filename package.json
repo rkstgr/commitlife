@@ -21,6 +21,7 @@
     "@remix-run/serve": "^2.15.2",
     "@vercel/remix": "^2.15.2",
     "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "isbot": "^4.1.0",
     "lucide-react": "^0.469.0",
@@ -30,7 +31,9 @@
     "react-dom": "^18.2.0",
     "remix-auth": "^4.1.0",
     "remix-auth-form": "^3.0.0",
-    "remix-auth-github": "^3.0.2"
+    "remix-auth-github": "^3.0.2",
+    "resend": "^4.0.1",
+    "tailwind-merge": "^2.6.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.15.2",
@@ -54,6 +57,6 @@
     "vite-tsconfig-paths": "^4.2.1"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   }
 }

@@ -11,14 +11,14 @@ body {
   }
 }
 
-.input {
+.search-input {
   background-color: #f2f2f2;
   border: 1px solid #f2f2f2;
   line-height: 1.5;
   @apply dark:bg-neutral-800 dark:border-neutral-800 dark:text-white;
 }
 
-.input:focus {
+.search-input:focus {
   border-color: #8d8d8d;
   box-shadow: 0 0 0 3px #d6d6d6;
   outline: 0;
@@ -26,4 +26,27 @@ body {
   @apply dark:border-neutral-600
          dark:bg-neutral-900
          dark:shadow-[0_0_0_3px_#404040];
+}
+
+.search-select {
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" /></svg>');
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+  background-color: #f2f2f2;
+  border: 1px solid #f2f2f2;
+  line-height: 1.5;
+  @apply dark:bg-neutral-800 dark:border-neutral-800 dark:text-white;
+}
+
+.search-select:focus {
+  border-color: #8d8d8d;
+  box-shadow: 0 0 0 3px #d6d6d6;
+  outline: 0;
+  background-color: #fff;
+  @apply dark:border-neutral-600
+        dark:bg-neutral-900
+        dark:shadow-[0_0_0_3px_#404040];
 }
