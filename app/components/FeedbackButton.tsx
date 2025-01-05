@@ -7,11 +7,11 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "components/Dialog";
+} from "./Dialog";
 import { useFetcher } from "@remix-run/react";
 import { useState, useEffect } from "react";
 import { Frown, Meh, Smile, type LucideIcon } from "lucide-react";
-import { action } from "~/routes/api.feedback";
+import { action } from "../routes/api.feedback";
 import Button from "./Button";
 
 type Sentiment = "negative" | "neutral" | "positive" | null;

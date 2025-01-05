@@ -5,6 +5,7 @@ import { ActivityCard } from "../components/ActivityCard";
 import { NewActivityModal } from "../components/NewActivityModal";
 import { Activity } from "~/lib/types";
 import { sessionStorage } from "~/services/session.server";
+import FeedbackButton from "~/components/FeedbackButton";
 
 export const loader: LoaderFunction = async ({
   request,
@@ -27,42 +28,44 @@ export default function Index() {
 
   return (
     <main className="container mx-auto p-4 max-w-screen-md">
-      <div>
-        <h1 className="text-3xl font-bold mb-8">Commit Life</h1>
+      <header className="flex flex-col gap-2 py-4 mb-8">
+        <div className="flex justify-between items-center">
+          <h1 className="text-3xl font-bold">Commit Life</h1>
+          <FeedbackButton />
+        </div>
 
-        <div className="absolute top-0 right-0 mt-4 mr-4">
+        <div className="flex items-center gap-3 text-sm">
           {user ? (
-            <Form action="/logout" method="post">
-              <span className="mr-4 text-sm text-gray-600">
-                {user.userEmail}
+            <>
+              <span className="text-gray-600 dark:text-gray-400 truncate">
+                {user.email}
               </span>
-              <button
-                type="submit"
-                className="text-sm text-blue-600 hover:text-blue-800"
-              >
-                Logout
-              </button>
-            </Form>
+              <Form action="/logout" method="post">
+                <button type="submit" className="text-blue-600">
+                  Logout
+                </button>
+              </Form>
+            </>
           ) : (
-            <Link
-              to="/login"
-              className="text-sm text-blue-600 hover:text-blue-800"
-            >
+            <Link to="/login" className="text-blue-600">
               Login
             </Link>
           )}
         </div>
-      </div>
+      </header>
 
-      <div className="space-y-8">
-        {user &&
-          activities.map((activity: Activity) => (
-            <ActivityCard key={activity.id} activity={activity} />
-          ))}
-      </div>
-      <div className="mt-8 mx-auto text-center">
-        <NewActivityModal />
-      </div>
+      {user && (
+        <>
+          <div className="space-y-8">
+            {activities.map((activity: Activity) => (
+              <ActivityCard key={activity.id} activity={activity} />
+            ))}
+          </div>
+          <div className="mt-8 mx-auto text-center">
+            <NewActivityModal />
+          </div>
+        </>
+      )}
     </main>
   );
 }
