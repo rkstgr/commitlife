@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  @font-face {
+    font-family: "Cabinet Grotesk";
+    src: url("/fonts/CabinetGrotesk/CabinetGrotesk-Variable.woff2")
+        format("woff2 supports variations"),
+      url("/fonts/CabinetGrotesk/CabinetGrotesk-Variable.woff2")
+        format("woff2-variations");
+    width: 100 1000;
+  }
+}
+
 html,
 body {
   @apply bg-white dark:bg-neutral-950;
