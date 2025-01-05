@@ -71,13 +71,13 @@ export function ActivityCard({ activity }: ActivityProps) {
             <Check className="w-6 h-6" />
           </div>
         ) : isWeekDone ? (
-          <button
-            className="bg-blue-500/10 text-blue-500 p-2 rounded inline-flex items-center gap-2 hover:bg-blue-700/10"
+          <Button
+            className="bg-blue-500/10 text-blue-500 rounded inline-flex items-center gap-2 hover:bg-blue-700/10"
             onClick={handleCommit}
           >
             <Check className="w-6 h-6" />
             <span className="hidden md:inline">This week</span>
-          </button>
+          </Button>
         ) : (
           <Button className="md:w-auto" onClick={handleCommit}>
             <span className="hidden md:inline">Complete Today</span>
