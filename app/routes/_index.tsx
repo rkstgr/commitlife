@@ -1,4 +1,3 @@
-// app/routes/_index.tsx
 import { LoaderFunctionArgs, type LoaderFunction } from "@remix-run/node";
 import { Form, Link, useLoaderData } from "@remix-run/react";
 import { getActivities } from "~/lib/activity.server";
@@ -17,10 +16,10 @@ export const loader: LoaderFunction = async ({
 
   if (user) {
     const activities = await getActivities(user.id);
-    return Response.json({ activities, user });
+    return { activities, user };
   }
 
-  return Response.json({ activities: null, user: null });
+  return { activities: null, user: null };
 };
 
 export default function Index() {

@@ -1,6 +1,7 @@
 import { type ActionFunction } from "@remix-run/node";
 import { set } from "date-fns";
 import { db } from "~/lib/db.server";
+import { json } from "@vercel/remix";
 
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
@@ -8,7 +9,7 @@ export const action: ActionFunction = async ({ request }) => {
   const activityId = formData.get("activityId");
 
   if (!activityId) {
-    return Response.json({ error: "Missing activityId" }, { status: 405 });
+    return json({ error: "Missing activityId" }, { status: 405 });
   }
 
   if (request.method === "DELETE") {
@@ -23,7 +24,7 @@ export const action: ActionFunction = async ({ request }) => {
         activityId: activityId as string,
       },
     });
-    return Response.json({ success: true, count });
+    return json({ success: true, count });
   }
 
   if (request.method === "POST") {
@@ -38,8 +39,8 @@ export const action: ActionFunction = async ({ request }) => {
         activityId: activityId as string,
       },
     });
-    return Response.json({ commit });
+    return json({ commit });
   }
 
-  return Response.json({ error: "Method not allowed" }, { status: 405 });
+  return json({ error: "Method not allowed" }, { status: 405 });
 };

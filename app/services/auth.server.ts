@@ -44,7 +44,7 @@ authenticator.use(
       scopes: ["user:email"],
     },
     async ({ tokens }) => {
-      let response = await fetch("https://api.github.com/user", {
+      const response = await fetch("https://api.github.com/user", {
         headers: {
           Accept: "application/vnd.github+json",
           Authorization: `Bearer ${tokens.accessToken()}`,
