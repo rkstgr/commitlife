@@ -6,11 +6,13 @@ Track your life activities in the style of github commit history
 - [x] Fix dark mode / UI styling
 - [x] Improve "Complete today" button, change button when already logged
 - [x] Change commits of the past (click event that flips a past day)
+
+- [x] Auth/Login
+- [x] Production Database
+- [ ] Push to vercel
+
 - [ ] Instead of total activites show "x/ out of N days" ; or longest streak
 - [ ] Make title of activities editable
-
-- [ ] Auth/Login
-- [x] Production Database
 
 
 ## Sections
